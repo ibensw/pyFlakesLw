@@ -83,6 +83,8 @@ class PyFlakesLwCommand(sublime_plugin.WindowCommand):
             self.view.settings().erase(self.SETTINGS_KEY)
             return
         self.keys = list(PyFlakesLwListener.current_errors.keys())
+        if not self.keys:
+            return
         self.keys.sort()
         items = ["L{}: {}".format(lineno, PyFlakesLwListener.current_errors[lineno]) for lineno in self.keys]
         self.window.show_quick_panel(items, self.go)
