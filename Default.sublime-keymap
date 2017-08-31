@@ -1,0 +1,6 @@
+[
+    {
+        "command": "py_flakes_lw", 
+        "keys": ["ctrl+e"],
+    }
+]
