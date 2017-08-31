@@ -12,12 +12,16 @@ class PyFlakesLwListener(sublime_plugin.EventListener):
     STATUS_KEY = 'pyflakeslw_status'
 
     def __init__(self):
-        self.notify = Timer(0.3, lambda: self.update())
-        self.notify.start()
         self.errors={}
         self.view = None
+        self.notify = Timer(0.3, lambda: self.update())
 
     def on_modified(self, view):
+        if not view.sel():
+            return
+        lang, _ = view.scope_name(view.sel()[0].begin()).split(' ', 1)
+        if not lang == "source.python":
+            return
         print("Restarting timer!")
         self.notify.cancel()
         self.notify = Timer(0.3, lambda: self.update())
