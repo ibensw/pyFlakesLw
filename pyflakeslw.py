@@ -39,6 +39,7 @@ class PyFlakesLwListener(sublime_plugin.EventListener):
     def on_selection_modified(self, view):
         sel = view.sel()
         if not sel:
+            view.erase_status(self.STATUS_KEY)
             return
         point=sel[0].end()
         row, _ = view.rowcol(point)
